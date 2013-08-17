@@ -15,9 +15,9 @@ class Command(PewbotCommand):
                 # Assumption: Campfire doesn't know what to do with an iframe,
                 #  so let's do some ugly string manipulation
                 iframe = self.client.get('/oembed', url=track[0].permalink_url).html
-                html = iframe.fields()['html']
-                url = html.split(" ")
-                response.append(url[-1].split("\""))
+                iframe_tokens = iframe.split(" ")
+                url = iframe_tokens[-1].split("\"")[1]
+                response.append(url)
                 return response
             except:
                 return ["Error accessing the SoundCloud API"]
